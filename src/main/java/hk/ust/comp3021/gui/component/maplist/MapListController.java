@@ -1,10 +1,14 @@
 package hk.ust.comp3021.gui.component.maplist;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -28,5 +32,16 @@ public class MapListController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
+        this.list = new ListView<>();
+        ObservableList<MapModel> maps = null;
+        
+
+//        System.out.println("Location: " + location);
+//        System.out.println("Resource: " + resources);
+
+
+        this.list.setItems(maps);
+
+
     }
 }

@@ -2,12 +2,14 @@ package hk.ust.comp3021.gui.scene.start;
 
 import hk.ust.comp3021.gui.component.maplist.MapEvent;
 import hk.ust.comp3021.gui.component.maplist.MapList;
+import hk.ust.comp3021.gui.component.maplist.MapListController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.DragEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,6 +38,12 @@ public class StartController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
+        try {
+            mapList = new MapList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /**
@@ -48,6 +56,7 @@ public class StartController implements Initializable {
     @FXML
     private void onLoadMapBtnClicked(ActionEvent event) {
         // TODO
+        System.out.println("Load Map");
     }
 
     /**
@@ -57,6 +66,7 @@ public class StartController implements Initializable {
     @FXML
     public void onDeleteMapBtnClicked() {
         // TODO
+        System.out.println("Delete Map");
     }
 
     /**
@@ -67,6 +77,7 @@ public class StartController implements Initializable {
     @FXML
     public void onOpenMapBtnClicked() {
         // TODO
+        System.out.println("Open Map");
     }
 
     /**

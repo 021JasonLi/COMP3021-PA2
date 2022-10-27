@@ -5,6 +5,7 @@ import hk.ust.comp3021.gui.scene.game.ExitEvent;
 import hk.ust.comp3021.gui.scene.game.GameScene;
 import hk.ust.comp3021.gui.scene.start.StartScene;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -26,13 +27,14 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Sokoban Game - COMP3021 2022Fall");
-
-        // TODO
+        Scene scene = new StartScene();
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
     }
 
     /**
      * Event handler for opening a map.
-     * Swith to the {@link GameScene} in the {@link this#primaryStage}.
+     * Switch to the {@link GameScene} in the {@link this#primaryStage}.
      *
      * @param event The event data related to the map being opened.
      */
