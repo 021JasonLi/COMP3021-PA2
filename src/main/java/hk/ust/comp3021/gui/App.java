@@ -1,5 +1,6 @@
 package hk.ust.comp3021.gui;
 
+import hk.ust.comp3021.game.GameState;
 import hk.ust.comp3021.gui.component.maplist.MapEvent;
 import hk.ust.comp3021.gui.scene.game.ExitEvent;
 import hk.ust.comp3021.gui.scene.game.GameScene;
@@ -8,11 +9,14 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * The JavaFX application that launches the game.
  */
 public class App extends Application {
     private Stage primaryStage;
+    private Stage secondaryStage;
 
     /**
      * Set up the primary stage and show the {@link StartScene}.
@@ -38,9 +42,14 @@ public class App extends Application {
      *
      * @param event The event data related to the map being opened.
      */
-    public void onOpenMap(MapEvent event) {
-        // TODO
+    public void onOpenMap(MapEvent event) throws IOException {
         System.out.println("Handle Open Map");
+        this.secondaryStage = new Stage();
+        secondaryStage.setTitle("Sokoban Game - COMP3021 2022Fall");
+        Scene scene = new GameScene(new GameState(event.getModel().gameMap()));
+        this.secondaryStage.setScene(scene);
+        this.primaryStage.hide();
+        this.secondaryStage.show();
         
     }
 

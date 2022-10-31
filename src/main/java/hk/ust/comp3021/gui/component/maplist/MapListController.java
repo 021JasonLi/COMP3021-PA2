@@ -34,16 +34,6 @@ public class MapListController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
-//        final var fxml = MapListItemController.class.getClassLoader().getResource("map00.map");
-//        System.out.println(fxml);
-
-        this.list = new ListView<>();
-        List<MapModel> list = new ArrayList<>();
-
-
-
-        ObservableList<MapModel> observableList = FXCollections.observableList(list);
-        this.list.setItems(observableList);
 
 
     }
