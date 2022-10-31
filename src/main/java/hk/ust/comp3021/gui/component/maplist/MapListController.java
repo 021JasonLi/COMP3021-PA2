@@ -8,6 +8,8 @@ import javafx.scene.control.ListView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -32,15 +34,16 @@ public class MapListController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
+//        final var fxml = MapListItemController.class.getClassLoader().getResource("map00.map");
+//        System.out.println(fxml);
+
         this.list = new ListView<>();
-        ObservableList<MapModel> maps = null;
-        
-
-//        System.out.println("Location: " + location);
-//        System.out.println("Resource: " + resources);
+        List<MapModel> list = new ArrayList<>();
 
 
-        this.list.setItems(maps);
+
+        ObservableList<MapModel> observableList = FXCollections.observableList(list);
+        this.list.setItems(observableList);
 
 
     }

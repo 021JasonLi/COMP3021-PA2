@@ -40,6 +40,8 @@ public class App extends Application {
      */
     public void onOpenMap(MapEvent event) {
         // TODO
+        System.out.println("Handle Open Map");
+        
     }
 
     /**
@@ -50,5 +52,6 @@ public class App extends Application {
      */
     public void onExitGame(ExitEvent event) {
         // TODO
+        System.out.println("Handle Exit Map");
     }
 }

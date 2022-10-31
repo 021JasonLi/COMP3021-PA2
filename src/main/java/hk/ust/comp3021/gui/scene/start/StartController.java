@@ -1,16 +1,22 @@
 package hk.ust.comp3021.gui.scene.start;
 
-import hk.ust.comp3021.gui.component.maplist.MapEvent;
-import hk.ust.comp3021.gui.component.maplist.MapList;
-import hk.ust.comp3021.gui.component.maplist.MapListController;
+import hk.ust.comp3021.gui.component.maplist.*;
+import hk.ust.comp3021.gui.utils.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.input.DragEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -38,9 +44,24 @@ public class StartController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
+        this.mapList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        this.deleteButton.disableProperty().bind(mapList.getSelectionModel().selectedItemProperty().isNull());
+        this.openButton.disableProperty().bind(mapList.getSelectionModel().selectedItemProperty().isNull());
+
         try {
-            mapList = new MapList();
-        } catch (IOException e) {
+            // load map00.map
+            File file00 = new File(Objects.requireNonNull(StartController.class.getClassLoader().getResource("map00.map")).toURI());
+            URL url00 = new URL("file", "", file00.getCanonicalPath());
+            MapModel mapModel00 = MapModel.load(url00);
+            this.mapList.getItems().add(0, mapModel00);
+
+            // load map01.map
+            File file01 = new File(Objects.requireNonNull(StartController.class.getClassLoader().getResource("map01.map")).toURI());
+            URL url01 = new URL("file", "", file01.getCanonicalPath());
+            MapModel mapModel01 = MapModel.load(url01);
+            this.mapList.getItems().add(0, mapModel01);
+
+        } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
 
@@ -56,7 +77,21 @@ public class StartController implements Initializable {
     @FXML
     private void onLoadMapBtnClicked(ActionEvent event) {
         // TODO
-        System.out.println("Load Map");
+        try {
+            FileChooser chooser = new FileChooser();
+            File file = chooser.showOpenDialog(null);
+            if (checkFileValid(file)) {
+                URL url = new URL("file", "", file.getCanonicalPath());
+                MapModel mapModel = MapModel.load(url);
+                mapModel.gameMap().getPlayerIds().size();
+                this.mapList.getItems().add(0, mapModel);
+            }
+            else {
+                Message.error("Invalid File", "This is not a valid file!");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -66,7 +101,8 @@ public class StartController implements Initializable {
     @FXML
     public void onDeleteMapBtnClicked() {
         // TODO
-        System.out.println("Delete Map");
+        System.out.println("Delete Map" + this.mapList.getSelectionModel().getSelectedIndices());
+
     }
 
     /**
@@ -78,6 +114,7 @@ public class StartController implements Initializable {
     public void onOpenMapBtnClicked() {
         // TODO
         System.out.println("Open Map");
+        
     }
 
     /**
@@ -105,5 +142,22 @@ public class StartController implements Initializable {
     public void onDragDropped(DragEvent dragEvent) {
         // TODO
     }
+
+    public boolean checkFileValid(File file) {
+        // check exist
+        if (!file.exists()) {
+            return false;
+        }
+
+        // check extension
+        if (!file.getName().endsWith(".map")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // no. of players
+    // same file?
 
 }
