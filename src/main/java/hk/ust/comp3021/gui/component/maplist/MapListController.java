@@ -34,7 +34,7 @@ public class MapListController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
-
+        System.out.println(this.list.getItems());
 
     }
 }

@@ -6,9 +6,11 @@ import hk.ust.comp3021.gui.utils.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -44,10 +47,11 @@ public class StartController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // set elements setting
         this.mapList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.deleteButton.disableProperty().bind(mapList.getSelectionModel().selectedItemProperty().isNull());
         this.openButton.disableProperty().bind(mapList.getSelectionModel().selectedItemProperty().isNull());
-
+        // load 2 maps
         try {
             // load map00.map
             File file00 = new File(Objects.requireNonNull(StartController.class.getClassLoader().getResource("map00.map")).toURI());
@@ -60,7 +64,6 @@ public class StartController implements Initializable {
         } catch (URISyntaxException e) {
             Message.error("Fail to load game map file", "Fail to load pre-loaded maps");
         }
-
     }
 
     /**
@@ -73,8 +76,11 @@ public class StartController implements Initializable {
     @FXML
     private void onLoadMapBtnClicked(ActionEvent event) {
         FileChooser chooser = new FileChooser();
-        File file = chooser.showOpenDialog(null);
-        loadFile(file);
+        List<File> files = chooser.showOpenMultipleDialog(null);
+        // assume only support single file
+        if (files != null) {
+            loadFile(files.get(0));
+        }
     }
 
     /**
@@ -95,7 +101,8 @@ public class StartController implements Initializable {
     public void onOpenMapBtnClicked() {
         // TODO
         MapEvent mapEvent = new MapEvent(MapEvent.OPEN_MAP_EVENT_TYPE, this.mapList.getItems().get(this.mapList.getSelectionModel().getSelectedIndex()));
-        this.mapList.fireEvent(mapEvent);
+
+        System.out.println("HAHA");
         
     }
 
@@ -107,7 +114,10 @@ public class StartController implements Initializable {
      */
     @FXML
     public void onDragOver(DragEvent event) {
-        // TODO
+        if (event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.LINK);
+        }
+        event.consume();
     }
 
     /**
@@ -122,7 +132,11 @@ public class StartController implements Initializable {
      */
     @FXML
     public void onDragDropped(DragEvent dragEvent) {
-        // TODO
+        List<File> files = dragEvent.getDragboard().getFiles();
+        for (int i = 0 ; i < files.size(); i++) {
+            loadFile(files.get(i));
+        }
+        dragEvent.consume();
     }
 
 
@@ -140,15 +154,15 @@ public class StartController implements Initializable {
                     this.mapList.getItems().add(0, mapModel);
                 }
                 else {
-                    Message.error("Fail to load game map file", "Number of player is invalid");
+                    Message.error("Fail to load game map file", "Number of player is invalid in map file " + file.getName());
                 }
 
             } catch (IOException e) {
-                Message.error("Fail to load game map file", "Cannot load the map file");
+                Message.error("Fail to load game map file", "Cannot load the map file " + file.getName());
             }
         }
         else {
-            Message.error("Fail to load game map file", "This is not a valid .map file!");
+            Message.error("Fail to load game map file", "Invalid map file " + file.getName());
         }
     }
 
@@ -162,12 +176,10 @@ public class StartController implements Initializable {
         if (!file.exists()) {
             return false;
         }
-
         // check extension
         if (!file.getName().endsWith(".map")) {
             return false;
         }
-
         return true;
     }
 
