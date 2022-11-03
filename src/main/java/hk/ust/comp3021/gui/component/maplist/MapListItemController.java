@@ -3,13 +3,11 @@ package hk.ust.comp3021.gui.component.maplist;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -41,10 +39,11 @@ public class MapListItemController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
-        this.mapName.setText("mapName");
-        this.loadAt.setText("loadAt");
-        this.mapFilePath.setText("mapFilePath");
+        this.mapModelProperty.addListener((observable, oldValue, newValue) -> {
+            this.mapName.setText(newValue.name());
+            this.loadAt.setText(newValue.loadAt().toString());
+            this.mapFilePath.setText(newValue.file().toString());
+        });
     }
 
     /**

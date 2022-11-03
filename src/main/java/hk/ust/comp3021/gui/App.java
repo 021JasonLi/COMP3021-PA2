@@ -70,5 +70,7 @@ public class App extends Application {
     public void onExitGame(ExitEvent event) {
         // TODO
         System.out.println("Handle Exit Map");
+        this.secondaryStage.hide();
+        this.primaryStage.show();
     }
 }
