@@ -99,11 +99,8 @@ public class StartController implements Initializable {
      */
     @FXML
     public void onOpenMapBtnClicked() {
-        // TODO
         MapEvent mapEvent = new MapEvent(MapEvent.OPEN_MAP_EVENT_TYPE, this.mapList.getItems().get(this.mapList.getSelectionModel().getSelectedIndex()));
         this.openButton.fireEvent(mapEvent);
-        System.out.println("HAHA");
-        
     }
 
     /**

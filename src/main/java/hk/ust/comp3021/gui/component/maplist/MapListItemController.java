@@ -42,8 +42,9 @@ public class MapListItemController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
-
-
+        this.mapName.setText("mapName");
+        this.loadAt.setText("loadAt");
+        this.mapFilePath.setText("mapFilePath");
     }
 
     /**
