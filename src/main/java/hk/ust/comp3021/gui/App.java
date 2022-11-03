@@ -8,6 +8,7 @@ import hk.ust.comp3021.gui.scene.start.StartScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import jdk.jfr.EventType;
 
 import java.io.IOException;
 
@@ -33,6 +34,13 @@ public class App extends Application {
         primaryStage.setTitle("Sokoban Game - COMP3021 2022Fall");
         Scene scene = new StartScene();
         this.primaryStage.setScene(scene);
+        this.primaryStage.addEventHandler(MapEvent.OPEN_MAP_EVENT_TYPE, event -> {
+            try {
+                onOpenMap(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         this.primaryStage.show();
     }
 
