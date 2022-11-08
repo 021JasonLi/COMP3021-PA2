@@ -98,7 +98,8 @@ public class StartController implements Initializable {
      */
     @FXML
     public void onOpenMapBtnClicked() {
-        MapEvent mapEvent = new MapEvent(MapEvent.OPEN_MAP_EVENT_TYPE, this.mapList.getItems().get(this.mapList.getSelectionModel().getSelectedIndex()));
+        MapModel mapModel= this.mapList.getItems().get(this.mapList.getSelectionModel().getSelectedIndex());
+        MapEvent mapEvent = new MapEvent(MapEvent.OPEN_MAP_EVENT_TYPE, mapModel);
         this.openButton.fireEvent(mapEvent);
     }
 
@@ -149,20 +150,17 @@ public class StartController implements Initializable {
                     if (checkPlayerABCD(mapModel)) { // only players A B C D
                         checkSameGameModel(mapModel); // check same file in the list -> remove
                         this.mapList.getItems().add(0, mapModel);
-                    }
-                    else  {
+                    } else  {
                         Message.error("Fail to load game map file", "Invalid player in map file " + file.getName());
                     }
-                }
-                else {
+                } else {
                     Message.error("Fail to load game map file", "Number of player is invalid in map file " + file.getName());
                 }
 
             } catch (IOException e) {
                 Message.error("Fail to load game map file", "Cannot load the map file " + file.getName());
             }
-        }
-        else {
+        } else {
             Message.error("Fail to load game map file", "Invalid map file " + file.getName());
         }
     }

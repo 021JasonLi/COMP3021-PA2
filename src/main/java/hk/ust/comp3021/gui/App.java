@@ -58,7 +58,6 @@ public class App extends Application {
         this.secondaryStage.addEventHandler(ExitEvent.EVENT_TYPE, this::onExitGame);
         this.primaryStage.hide();
         this.secondaryStage.show();
-        
     }
 
     /**
