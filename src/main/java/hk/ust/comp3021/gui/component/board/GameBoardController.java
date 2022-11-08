@@ -28,6 +28,7 @@ public class GameBoardController implements RenderingEngine, Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        undoQuota.setText("Undo Quota: ");
     }
 
     /**

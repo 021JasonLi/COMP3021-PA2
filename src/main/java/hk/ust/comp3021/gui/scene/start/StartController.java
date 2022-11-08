@@ -88,6 +88,7 @@ public class StartController implements Initializable {
     @FXML
     public void onDeleteMapBtnClicked() {
         this.mapList.getItems().remove(this.mapList.getSelectionModel().getSelectedIndex());
+        this.mapList.getSelectionModel().clearSelection();
     }
 
     /**
@@ -145,8 +146,13 @@ public class StartController implements Initializable {
                 URL url = new URL("file", "", file.getCanonicalPath());
                 MapModel mapModel = MapModel.load(url);
                 if (checkPlayerNumber(mapModel)) { // player no within [1, 4]
-                    checkSameGameModel(mapModel); // check same file in the list -> remove
-                    this.mapList.getItems().add(0, mapModel);
+                    if (checkPlayerABCD(mapModel)) { // only players A B C D
+                        checkSameGameModel(mapModel); // check same file in the list -> remove
+                        this.mapList.getItems().add(0, mapModel);
+                    }
+                    else  {
+                        Message.error("Fail to load game map file", "Invalid player in map file " + file.getName());
+                    }
                 }
                 else {
                     Message.error("Fail to load game map file", "Number of player is invalid in map file " + file.getName());
@@ -186,6 +192,20 @@ public class StartController implements Initializable {
     public boolean checkPlayerNumber(@NotNull MapModel mapModel) {
         if ((mapModel.gameMap().getPlayerIds().size() > 4) || (mapModel.gameMap().getPlayerIds().size() < 1)) {
             return false;
+        }
+        return true;
+    }
+
+    /**
+     * Check whether the map contains invalid players (E, F, G, ..., Z)
+     * @param mapModel The model to check
+     * @return true if there is only players A,B,C,D, false if there is other players
+     */
+    public boolean checkPlayerABCD(@NotNull MapModel mapModel) {
+        for (int i = 4; i < 26; i++) { // From 'E' to 'Z'
+            if (mapModel.gameMap().getPlayerIds().contains(i))  {
+                return false;
+            }
         }
         return true;
     }
