@@ -39,6 +39,7 @@ public class GameSceneController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
+
     }
 
     /**
@@ -64,6 +65,7 @@ public class GameSceneController implements Initializable {
      */
     @FXML
     public void onExit(ActionEvent event) {
-        // TODO
+        ExitEvent exitEvent = new ExitEvent();
+        this.gamePane.fireEvent(exitEvent);
     }
 }

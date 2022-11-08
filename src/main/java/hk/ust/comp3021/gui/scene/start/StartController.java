@@ -1,12 +1,10 @@
 package hk.ust.comp3021.gui.scene.start;
 
-import hk.ust.comp3021.gui.App;
 import hk.ust.comp3021.gui.component.maplist.*;
 import hk.ust.comp3021.gui.utils.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.DragEvent;

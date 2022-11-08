@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,5 +41,7 @@ public class CellController implements Initializable {
      */
     public void setImage(@NotNull URL url) {
         // TODO
+        image = new ImageView(String.valueOf(url));
+
     }
 }

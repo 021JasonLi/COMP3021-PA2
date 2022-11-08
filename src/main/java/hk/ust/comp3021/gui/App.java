@@ -8,7 +8,6 @@ import hk.ust.comp3021.gui.scene.start.StartScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import jdk.jfr.EventType;
 
 import java.io.IOException;
 
@@ -49,13 +48,14 @@ public class App extends Application {
      * Switch to the {@link GameScene} in the {@link this#primaryStage}.
      *
      * @param event The event data related to the map being opened.
+     * @throws IOException GameScene cannot load then throw it
      */
     public void onOpenMap(MapEvent event) throws IOException {
-        System.out.println("Handle Open Map");
         this.secondaryStage = new Stage();
         secondaryStage.setTitle("Sokoban Game - COMP3021 2022Fall");
         Scene scene = new GameScene(new GameState(event.getModel().gameMap()));
         this.secondaryStage.setScene(scene);
+        this.secondaryStage.addEventHandler(ExitEvent.EVENT_TYPE, this::onExitGame);
         this.primaryStage.hide();
         this.secondaryStage.show();
         
@@ -68,8 +68,6 @@ public class App extends Application {
      * @param event The event data related to exiting the game.
      */
     public void onExitGame(ExitEvent event) {
-        // TODO
-        System.out.println("Handle Exit Map");
         this.secondaryStage.hide();
         this.primaryStage.show();
     }
