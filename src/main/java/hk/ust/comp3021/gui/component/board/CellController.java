@@ -24,7 +24,7 @@ public class CellController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
+
     }
 
     /**
@@ -34,6 +34,7 @@ public class CellController implements Initializable {
     public void markAtDestination() {
         // TODO
         System.out.println("MARKED");
+        
     }
 
     /**
