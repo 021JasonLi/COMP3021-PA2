@@ -1,6 +1,7 @@
 package hk.ust.comp3021.gui.component.control;
 
 import hk.ust.comp3021.actions.Action;
+import hk.ust.comp3021.actions.Undo;
 import hk.ust.comp3021.entities.Player;
 import hk.ust.comp3021.game.InputEngine;
 import hk.ust.comp3021.utils.NotImplementedException;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.FlowPane;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -44,7 +46,7 @@ public class ControlPanelController implements Initializable, InputEngine {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
+
     }
 
     /**
@@ -56,6 +58,8 @@ public class ControlPanelController implements Initializable, InputEngine {
     public void onUndo(ActionEvent event) {
         // TODO
         System.out.println("UNDO");
+        Action action = new Undo(-1);
+
     }
 
     /**
@@ -66,7 +70,15 @@ public class ControlPanelController implements Initializable, InputEngine {
      * @param playerImageUrl The URL to the profile image of the player
      */
     public void addPlayer(Player player, URL playerImageUrl) {
-        // TODO
+        try {
+            MovementButtonGroup mbg = new MovementButtonGroup();
+            mbg.getController().setPlayer(player);
+            mbg.getController().setPlayerImage(playerImageUrl);
+            this.playerControls.getChildren().add(mbg);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

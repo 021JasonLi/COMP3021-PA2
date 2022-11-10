@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -32,9 +33,8 @@ public class CellController implements Initializable {
      * Should be called when the cell is one of the  destinations and there is a box.
      */
     public void markAtDestination() {
-        // TODO
-        System.out.println("MARKED");
-        
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(this.image, this.mark);
     }
 
     /**
