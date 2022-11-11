@@ -52,26 +52,22 @@ public class GameBoardController implements RenderingEngine, Initializable {
                             if (entity instanceof Wall) {
                                 cell.getController().setImage(Resource.getWallImageURL());
                                 this.map.add(cell, finalJ, finalI);
-                            }
-                            else if (entity instanceof Box) {
+                            } else if (entity instanceof Box) {
                                 cell.getController().setImage(Resource.getBoxImageURL(((Box)entity).getPlayerId()));
                                 // Check is it in the destination
                                 if (state.getDestinations().contains(Position.of(finalJ, finalI))) {
                                     cell.getController().markAtDestination();
                                 }
                                 this.map.add(cell, finalJ, finalI);
-                            }
-                            else if (entity instanceof Empty) {
+                            } else if (entity instanceof Empty) {
                                 // Check is it destination
                                 if (state.getDestinations().contains(Position.of(finalJ, finalI))) {
                                     cell.getController().setImage(Resource.getDestinationImageURL());
-                                }
-                                else { // Or just empty cell
+                                } else { // Or just empty cell
                                     cell.getController().setImage(Resource.getEmptyImageURL());
                                 }
                                 this.map.add(cell, finalJ, finalI);
-                            }
-                            else if (entity instanceof Player) {
+                            } else if (entity instanceof Player) {
                                 cell.getController().setImage(Resource.getPlayerImageURL(((Player)entity).getId()));
                                 this.map.add(cell, finalJ, finalI);
                             }
@@ -85,8 +81,7 @@ public class GameBoardController implements RenderingEngine, Initializable {
         Platform.runLater(() -> {
             if (state.getUndoQuota().isPresent()) {
                 this.undoQuota.setText("Undo Quota: " + state.getUndoQuota().get());
-            }
-            else {
+            } else {
                 this.undoQuota.setText("Undo Quota: Unlimited");
             }
         });

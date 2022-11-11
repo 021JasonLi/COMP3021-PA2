@@ -1,7 +1,6 @@
 package hk.ust.comp3021.gui.component.control;
 
 import hk.ust.comp3021.actions.Action;
-import hk.ust.comp3021.actions.ActionResult;
 import hk.ust.comp3021.actions.Move;
 import hk.ust.comp3021.entities.Player;
 import javafx.fxml.FXML;
@@ -13,9 +12,6 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Control logic for {@link MovementButtonGroup}.

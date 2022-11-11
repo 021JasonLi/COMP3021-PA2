@@ -1,11 +1,9 @@
 package hk.ust.comp3021.gui.component.control;
 
 import hk.ust.comp3021.actions.Action;
-import hk.ust.comp3021.actions.Move;
 import hk.ust.comp3021.actions.Undo;
 import hk.ust.comp3021.entities.Player;
 import hk.ust.comp3021.game.InputEngine;
-import hk.ust.comp3021.utils.NotImplementedException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +26,9 @@ public class ControlPanelController implements Initializable, InputEngine {
     @FXML
     private FlowPane playerControls;
 
+    /**
+     * Used to store action to perform
+     */
     public static BlockingQueue<Action> actionQueue;
 
     /**

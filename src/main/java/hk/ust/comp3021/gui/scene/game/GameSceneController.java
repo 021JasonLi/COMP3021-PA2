@@ -2,7 +2,6 @@ package hk.ust.comp3021.gui.scene.game;
 
 import hk.ust.comp3021.actions.Action;
 import hk.ust.comp3021.actions.Exit;
-import hk.ust.comp3021.actions.Undo;
 import hk.ust.comp3021.game.GameState;
 import hk.ust.comp3021.gui.component.board.GameBoard;
 import hk.ust.comp3021.gui.component.control.ControlPanel;
