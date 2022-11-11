@@ -51,7 +51,6 @@ public class MovementButtonGroupController implements Initializable {
 
     @FXML
     private void moveUp() {
-        System.out.println("Player " + this.player.getId() + " UP");
         try {
             Action action = new Move.Up(this.player.getId());
             ControlPanelController.actionQueue.put(action);
@@ -64,7 +63,6 @@ public class MovementButtonGroupController implements Initializable {
 
     @FXML
     private void moveDown() {
-        System.out.println("Player " + this.player.getId() + " DOWN");
         try {
             Action action = new Move.Down(this.player.getId());
             ControlPanelController.actionQueue.put(action);
@@ -77,7 +75,6 @@ public class MovementButtonGroupController implements Initializable {
 
     @FXML
     private void moveLeft() {
-        System.out.println("Player " + this.player.getId() + " LEFT");
         try {
             Action action = new Move.Left(this.player.getId());
             ControlPanelController.actionQueue.put(action);
@@ -89,7 +86,6 @@ public class MovementButtonGroupController implements Initializable {
 
     @FXML
     private void moveRight() {
-        System.out.println("Player " + this.player.getId() + " RIGHT");
         try {
             Action action = new Move.Right(this.player.getId());
             ControlPanelController.actionQueue.put(action);

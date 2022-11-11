@@ -39,7 +39,6 @@ public class ControlPanelController implements Initializable, InputEngine {
      */
     @Override
     public @NotNull Action fetchAction() {
-        System.out.println("HAHA");
         try {
             return Objects.requireNonNull(actionQueue.take());
         } catch (InterruptedException e) {
@@ -67,7 +66,6 @@ public class ControlPanelController implements Initializable, InputEngine {
      * @param event Event data related to clicking the button.
      */
     public void onUndo(ActionEvent event) {
-        System.out.println("UNDO");
         try {
             Action action = new Undo(-1);
             ControlPanelController.actionQueue.put(action);
