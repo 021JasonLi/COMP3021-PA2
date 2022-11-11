@@ -33,8 +33,7 @@ public class CellController implements Initializable {
      * Should be called when the cell is one of the  destinations and there is a box.
      */
     public void markAtDestination() {
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(this.image, this.mark);
+        this.mark.setText("✓");
     }
 
     /**

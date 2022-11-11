@@ -53,6 +53,14 @@ public class GameBoardController implements RenderingEngine, Initializable {
                                 cell.getController().setImage(Resource.getWallImageURL());
                                 this.map.add(cell, finalJ, finalI);
                             }
+                            else if (entity instanceof Box) {
+                                cell.getController().setImage(Resource.getBoxImageURL(((Box)entity).getPlayerId()));
+                                // Check is it in the destination
+                                if (state.getDestinations().contains(Position.of(finalJ, finalI))) {
+                                    cell.getController().markAtDestination();
+                                }
+                                this.map.add(cell, finalJ, finalI);
+                            }
                             else if (entity instanceof Empty) {
                                 // Check is it destination
                                 if (state.getDestinations().contains(Position.of(finalJ, finalI))) {
@@ -60,14 +68,6 @@ public class GameBoardController implements RenderingEngine, Initializable {
                                 }
                                 else { // Or just empty cell
                                     cell.getController().setImage(Resource.getEmptyImageURL());
-                                }
-                                this.map.add(cell, finalJ, finalI);
-                            }
-                            else if (entity instanceof Box) {
-                                cell.getController().setImage(Resource.getBoxImageURL(((Box)entity).getPlayerId()));
-                                // Check is it in the destination
-                                if (state.getDestinations().contains(Position.of(finalJ, finalI))) {
-                                    cell.getController().markAtDestination();
                                 }
                                 this.map.add(cell, finalJ, finalI);
                             }
@@ -82,13 +82,14 @@ public class GameBoardController implements RenderingEngine, Initializable {
             }
         }
         // Set Undo Quota at the bottom of cells
-        if (state.getUndoQuota().isPresent()) {
-            this.undoQuota.setText("Undo Quota: " + state.getUndoQuota().get());
-        }
-        else {
-            this.undoQuota.setText("Undo Quota: Unlimited");
-        }
-
+        Platform.runLater(() -> {
+            if (state.getUndoQuota().isPresent()) {
+                this.undoQuota.setText("Undo Quota: " + state.getUndoQuota().get());
+            }
+            else {
+                this.undoQuota.setText("Undo Quota: Unlimited");
+            }
+        });
     }
 
     /**

@@ -1,6 +1,7 @@
 package hk.ust.comp3021.gui.component.control;
 
 import hk.ust.comp3021.actions.Action;
+import hk.ust.comp3021.actions.Move;
 import hk.ust.comp3021.actions.Undo;
 import hk.ust.comp3021.entities.Player;
 import hk.ust.comp3021.game.InputEngine;
@@ -13,7 +14,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Control logic for a {@link ControlPanel}.
@@ -24,6 +28,8 @@ public class ControlPanelController implements Initializable, InputEngine {
     @FXML
     private FlowPane playerControls;
 
+    public static BlockingQueue<Action> actionQueue;
+
     /**
      * Fetch the next action made by users.
      * All the actions performed by users should be cached in this class and returned by this method.
@@ -32,8 +38,12 @@ public class ControlPanelController implements Initializable, InputEngine {
      */
     @Override
     public @NotNull Action fetchAction() {
-        // TODO
-        throw new NotImplementedException();
+        System.out.println("HAHA");
+        try {
+            return Objects.requireNonNull(actionQueue.take());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -46,7 +56,7 @@ public class ControlPanelController implements Initializable, InputEngine {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        actionQueue = new ArrayBlockingQueue<>(10);
     }
 
     /**
@@ -56,9 +66,13 @@ public class ControlPanelController implements Initializable, InputEngine {
      * @param event Event data related to clicking the button.
      */
     public void onUndo(ActionEvent event) {
-        // TODO
         System.out.println("UNDO");
-        Action action = new Undo(-1);
+        try {
+            Action action = new Undo(-1);
+            ControlPanelController.actionQueue.put(action);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

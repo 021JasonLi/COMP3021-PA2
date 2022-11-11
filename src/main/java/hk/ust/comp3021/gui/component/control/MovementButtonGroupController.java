@@ -55,35 +55,51 @@ public class MovementButtonGroupController implements Initializable {
 
     @FXML
     private void moveUp() {
-        // TODO
         System.out.println("Player " + this.player.getId() + " UP");
-        Action action = new Move.Up(this.player.getId());
+        try {
+            Action action = new Move.Up(this.player.getId());
+            ControlPanelController.actionQueue.put(action);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
 
     @FXML
     private void moveDown() {
-        // TODO
         System.out.println("Player " + this.player.getId() + " DOWN");
-        Action action = new Move.Down(this.player.getId());
+        try {
+            Action action = new Move.Down(this.player.getId());
+            ControlPanelController.actionQueue.put(action);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
 
     @FXML
     private void moveLeft() {
-        // TODO
         System.out.println("Player " + this.player.getId() + " LEFT");
-        Action action = new Move.Left(this.player.getId());
+        try {
+            Action action = new Move.Left(this.player.getId());
+            ControlPanelController.actionQueue.put(action);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @FXML
     private void moveRight() {
-        // TODO
         System.out.println("Player " + this.player.getId() + " RIGHT");
-        Action action = new Move.Right(this.player.getId());
+        try {
+            Action action = new Move.Right(this.player.getId());
+            ControlPanelController.actionQueue.put(action);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
